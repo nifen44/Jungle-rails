@@ -1,7 +1,10 @@
 class OrdersController < ApplicationController
 
   def show
-    @order = Order.find(params[:id])
+    @order = Order.includes(:line_items).find(params[:id])
+    @order.line_items.each do |child|
+      puts "Product ID: #{child.product.id}"
+    end
   end
 
   def create
@@ -55,5 +58,13 @@ class OrdersController < ApplicationController
     order.save!
     order
   end
+
+  def enhanced_order
+
+    @enhanced_order ||= 
+    Product.where(id: @order.line_items.map { |line_items| line_items.product_id })
+    .map {|product| { product:product, quantity: @order.line_items.find { |element| element.product_id == product.id}.quantity } }
+  end
+  helper_method :enhanced_order
 
 end
