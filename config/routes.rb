@@ -7,6 +7,14 @@ Rails.application.routes.draw do
 
   resources :about
 
+  resources :register, only: [:index, :new, :create] do
+    post  :create
+  end
+
+  get '/login' => 'login#new'
+  post '/login' => 'login#create'
+  get '/logout' => 'login#destroy'
+
   resource :cart, only: [:show] do
     post   :add_item
     post   :remove_item
