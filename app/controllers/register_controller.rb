@@ -1,6 +1,5 @@
 class RegisterController < ApplicationController
     def index
-    
     end
 
     def new
@@ -10,10 +9,15 @@ class RegisterController < ApplicationController
     def create
         @user = User.new(user_params)
     
-        if @user.save
-          redirect_to root_path, notice: 'User created!'
+        if @user.password == @user.password_confirmation
+          if @user.save
+            redirect_to root_path, notice: 'User created!'
+          else
+            render :index
+          end
         else
-          render :index
+          @user.errors.add(:password_confirmation, "doesn't match Password")
+          render :new
         end
       end
 
@@ -24,7 +28,8 @@ private
       :first_name,
       :last_name,
       :email,
-      :password
+      :password,
+      :password_confirmation
     )
   end
 end

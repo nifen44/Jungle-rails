@@ -13,22 +13,22 @@ RSpec.describe Product, type: :model do
       expect(product).to be_valid
     end
 
-    it 'is invalide without name' do
+    it 'is invalide when name is missing' do
       product = Product.new(name: nil)
       expect(product).to_not be_valid
     end
 
-    it 'is invalid without a price' do
+    it 'is invalid when price is missing' do
       product = Product.new(price: nil)
       expect(product).to_not be_valid
     end
 
-    it 'is invalid without a quantity' do
+    it 'is invalid when quantity is missing' do
       product = Product.new(quantity: nil)
       expect(product).to_not be_valid
     end
 
-    it 'is invalid without a category' do
+    it 'is invalid when category is missing' do
       product = Product.new(category: nil)
       expect(product).to_not be_valid
     end

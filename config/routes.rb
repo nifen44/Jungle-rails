@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :about
 
-  resources :register, only: [:index, :new, :create] do
+  resources :register, only: [:new, :create] do
     post  :create
   end
 
