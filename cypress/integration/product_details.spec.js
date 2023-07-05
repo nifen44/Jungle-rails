@@ -7,12 +7,16 @@ describe('Jungle homepage', () => {
       cy.visit('http://localhost:3000/')
     })
 
-    it("There is products on the page", () => {
-        cy.get(".products article").should("be.visible");
-    });
-
-    // it("There is 2 products on the page", () => {
-    //     cy.get(".products article").should("have.length", 2);
-    // });
+    it('User can navigate to product detail page', () => {
+        // Find the product link on the home page and click it
+        cy.get('.products-index')
+          .find('article') 
+          .find('a') 
+          .eq(0)
+          .click();
+      
+        // Assert that the current URL contains the product detail path
+        cy.url().should('include', '/products/1'); 
+      });
 
 })
